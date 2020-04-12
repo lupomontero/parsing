@@ -9,5 +9,15 @@ describe('expr', () => {
     expect(expr('1+11+8*2')).toEqual([28, '']);
     expect(expr('3*3*3+1')).toEqual([28, '']);
     expect(expr('3*3*(3+1)')).toEqual([36, '']);
+    console.log(expr('1*-1'));
+    console.log(expr('2*-3'));
+    console.log(expr('-2*3'));
+    console.log(expr('2*(-3)'));
+    console.log(expr('1+-1'));
+    console.log(expr('2+2*3/2'));
+    console.log(expr('1/40+1'));
+    console.log(expr('1-1'));
+    console.log(expr('3-(1/4)*4'));
+
   });
 });

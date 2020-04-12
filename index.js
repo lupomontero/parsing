@@ -9,11 +9,11 @@
 //
 // With abstracted sequences (operations)
 //
-// sum: term + expr
+// addition: term + expr
 // multiplication: factor * term
 // bracketedExpr: (expr)
 //
-// expr: sum | term
+// expr: addition | term
 // term: multiplication | factor
 // factor: bracketedExpr | int
 //
@@ -30,13 +30,23 @@ const multiplication = (str) => {
   return !result ? [] : [result[0] * result[2], remaining];
 };
 
-const sum = (str) => {
+const division = (str) => {
+  const [result, remaining] = seq(factor, char('/'), term)(str);
+  return !result ? [] : [result[0] / result[2], remaining];
+};
+
+const addition = (str) => {
   const [result, remaining] = seq(term, char('+'), expr)(str);
   return !result ? [] : [result[0] + result[2], remaining];
 };
 
+const subtraction = (str) => {
+  const [result, remaining] = seq(term, char('-'), expr)(str);
+  return !result ? [] : [result[0] - result[2], remaining];
+};
+
 const factor = choice(bracketedExpr, int);
-const term = choice(multiplication, factor);
-const expr = choice(sum, term);
+const term = choice(multiplication, division, factor);
+const expr = choice(addition, subtraction, term);
 
 module.exports = { expr, term, factor };
