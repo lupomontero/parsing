@@ -3,47 +3,49 @@
 //
 // Main grammar
 //
-// expr: term + expr | term
-// term: factor * term | factor
+// expr: term + expr | term - expr | term
+// term: factor * term | factor / term | factor
 // factor: (expr) | int
 //
 // With abstracted sequences (operations)
 //
 // addition: term + expr
+// subtraction: term - expr
 // multiplication: factor * term
+// division: factor / term
 // bracketedExpr: (expr)
 //
-// expr: addition | term
-// term: multiplication | factor
+// expr: addition | subtraction | term
+// term: multiplication | division | factor
 // factor: bracketedExpr | int
 //
 
 const { char, int, seq, choice } = require('./lib/util');
 
-const bracketedExpr = (str) => {
-  const [result, remaining] = seq(char('('), expr, char(')'))(str);
-  return !result ? [] : [result[1], remaining];
-};
+const bracketedExpr = seq(
+  () => [char('('), expr, char(')')],
+  ([_, x]) => x,
+);
 
-const multiplication = (str) => {
-  const [result, remaining] = seq(factor, char('*'), term)(str);
-  return !result ? [] : [result[0] * result[2], remaining];
-};
+const multiplication = seq(
+  () => [factor, char('*'), term],
+  ([x, _, y]) => x * y,
+);
 
-const division = (str) => {
-  const [result, remaining] = seq(factor, char('/'), term)(str);
-  return !result ? [] : [result[0] / result[2], remaining];
-};
+const division = seq(
+  () => [factor, char('/'), term],
+  ([x, _, y]) => x / y,
+);
 
-const addition = (str) => {
-  const [result, remaining] = seq(term, char('+'), expr)(str);
-  return !result ? [] : [result[0] + result[2], remaining];
-};
+const addition = seq(
+  () => [term, char('+'), expr],
+  ([x, _, y]) => x + y,
+);
 
-const subtraction = (str) => {
-  const [result, remaining] = seq(term, char('-'), expr)(str);
-  return !result ? [] : [result[0] - result[2], remaining];
-};
+const subtraction = seq(
+  () => [term, char('-'), expr],
+  ([x, _, y]) => x - y,
+);
 
 const factor = choice(bracketedExpr, int);
 const term = choice(multiplication, division, factor);

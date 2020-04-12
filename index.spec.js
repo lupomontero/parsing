@@ -1,23 +1,31 @@
 const { expr, term, factor } = require('.');
 
-describe('expr', () => {
-  it('should ...', () => {
-    expect(expr('5')).toEqual([5, '']);
-    expect(expr('2+3*4')).toEqual([14, '']);
-    expect(expr('(2+3)*4')).toEqual([20, '']);
-    expect(expr('1+11')).toEqual([12, '']);
-    expect(expr('1+11+8*2')).toEqual([28, '']);
-    expect(expr('3*3*3+1')).toEqual([28, '']);
-    expect(expr('3*3*(3+1)')).toEqual([36, '']);
-    console.log(expr('1*-1'));
-    console.log(expr('2*-3'));
-    console.log(expr('-2*3'));
-    console.log(expr('2*(-3)'));
-    console.log(expr('1+-1'));
-    console.log(expr('2+2*3/2'));
-    console.log(expr('1/40+1'));
-    console.log(expr('1-1'));
-    console.log(expr('3-(1/4)*4'));
+const testData = [
+  ['5', [5, '']],
+  ['2+3*4', [14, '']],
+  ['(2+3)*4', [20, '']],
+  ['1+11', [12, '']],
+  ['1+11+8*2', [28, '']],
+  ['3*3*3+1', [28, '']],
+  ['3*3*(3+1)', [36, '']],
+  ['1*-1', [-1, '']],
+  ['2*-3', [-6, '']],
+  ['2*(-3)', [-6, '']],
+  ['1+-1', [0, '']],
+  ['2+2*3/2', [5, '']],
+  ['1/40+1', [1.025, '']],
+  ['1-1', [0, '']],
+  ['3-(1/4)*4', [2, '']],
+];
 
+describe('expr', () => {
+  testData.forEach(([input, expected]) => {
+    it(`should return ${expected} for input "${input}"`, () => {
+      expect(expr(input)).toEqual(expected);
+    });
+  });
+
+  it('should ...', () => {
+    // console.log(expr('1/0'));
   });
 });
