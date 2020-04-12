@@ -2,13 +2,11 @@
   "name": "parsing",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "author": "Lupo Montero <lupomontero@gmail.com> (https://lupo.pe/)",
+  "license": "MIT",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --verbose --coverage"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
     "jest": "^25.3.0"
   }
