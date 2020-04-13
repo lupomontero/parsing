@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`json should ... 1`] = `
+Array [
+  Array [
+    1,
+    2,
+    false,
+    Array [
+      null,
+      null,
+      Array [
+        3,
+      ],
+    ],
+  ],
+  "",
+]
+`;
+
+exports[`json should ... 2`] = `
+Array [
+  Array [
+    10,
+    11,
+    true,
+    false,
+    null,
+  ],
+  "",
+]
+`;
+
+exports[`json should ... 3`] = `
+Array [
+  Array [
+    1,
+    true,
+    Array [
+      "oh my god!",
+    ],
+  ],
+  "",
+]
+`;
+
+exports[`json should ... 4`] = `
+Array [
+  Object {
+    "ok": true,
+  },
+  "",
+]
+`;
+
+exports[`json should ... 5`] = `
+Array [
+  Object {
+    "nested": Object {
+      "oh": "my",
+      "tags": Array [
+        1,
+        2,
+        3,
+      ],
+      "version": 2,
+    },
+    "ok": true,
+  },
+  "",
+]
+`;
