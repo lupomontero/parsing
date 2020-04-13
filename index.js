@@ -55,9 +55,11 @@ const choice = (...parsers) => (str) => {
   return result.length ? result : choice(...parsers.slice(1))(str);
 };
 
+const ws = some(choice(char(''), char(' '), char('\t'), char('\n'), char('\r')));
+
 const int = choice(
   seq(() => [char('-'), nat], ([_, x]) => x * -1),
   nat,
 );
 
-module.exports = { char, digit, some, nat, int, seq, choice };
+module.exports = { char, digit, some, nat, seq, choice, ws, int };

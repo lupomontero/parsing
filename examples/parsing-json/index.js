@@ -1,12 +1,4 @@
-// Example JSON parser
-//
-// Grammar
-// * https://www.json.org/json-en.html
-// * https://www.crockford.com/mckeeman.html
-
-const { char, nat, int, some, seq, choice } = require('../..');
-
-const ws = some(choice(char(''), char(' '), char('\t'), char('\n'), char('\r')));
+const { char, nat, int, ws, some, seq, choice } = require('../..');
 
 const nullVal = seq(
   () => [char('n'), char('u'), char('l'), char('l')],
