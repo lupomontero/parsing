@@ -4,10 +4,6 @@ A functional arithmetic expression parser.
 
 ## Grammar
 
-* `expr`: `term` `+` `expr` | `term` `-` `expr` | `term`
-* `term`: `factor` `*` `term` | `factor` `/` `term` | `factor`
-* `factor`: `(expr)` | `int`
-
 ```
 expr
     term '+' expr
@@ -18,23 +14,13 @@ term
     factor '/' term
     factor
 factor
-    '('expr')'
+    '(' expr ')'
     int
 ```
 
 ### With abstracted sequences (operations)
 
 ```
-addition
-    term '+' expr
-subtraction
-    term '-' expr
-multiplication
-    factor '*' term
-division
-    factor '/' term
-bracketedExpr
-    '('expr')'
 expr
     addition
     subtraction
@@ -46,6 +32,16 @@ term
 factor
     bracketedExpr
     int
+addition
+    term '+' expr
+subtraction
+    term '-' expr
+multiplication
+    factor '*' term
+division
+    factor '/' term
+bracketedExpr
+    '(' expr ')'
 ```
 
 ## Examples

@@ -92,7 +92,7 @@ In JavaScript land, our _parsers_ are going to be _functions_ that expect a
 single argument (the input string) and return an array.
 
 * If parsing succeeded the returned array will have two elements (the parsed
-  value and a string with the characters remining to be parsed).
+  value and a string with the characters remaining to be parsed).
 * If parsing fails the returned array will be empty.
 
 ```js
