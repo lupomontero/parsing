@@ -11,7 +11,7 @@ const {
   member,
   members,
   object,
-} = require('./json');
+} = require('.');
 
 describe('ws', () => {
   it('should...', () => {

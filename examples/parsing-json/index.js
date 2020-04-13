@@ -4,7 +4,7 @@
 // * https://www.json.org/json-en.html
 // * https://www.crockford.com/mckeeman.html
 
-const { char, nat, int, some, seq, choice } = require('./lib/util');
+const { char, nat, int, some, seq, choice } = require('../..');
 
 const ws = some(choice(char(''), char(' '), char('\t'), char('\n'), char('\r')));
 
