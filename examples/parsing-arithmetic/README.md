@@ -14,8 +14,14 @@ term
     factor '/' term
     factor
 factor
-    '(' expr ')'
-    int
+    ws '(' expr ')' ws
+    ws int ws
+ws
+    ""
+    '0020' ws
+    '000A' ws
+    '000D' ws
+    '0009' ws
 ```
 
 ### With abstracted sequences (operations)
@@ -31,7 +37,7 @@ term
     factor
 factor
     bracketedExpr
-    int
+    wsPaddedInt
 addition
     term '+' expr
 subtraction
@@ -41,7 +47,9 @@ multiplication
 division
     factor '/' term
 bracketedExpr
-    '(' expr ')'
+    ws '(' expr ')' ws
+wsPaddedInt
+    ws int ws
 ```
 
 ## Examples

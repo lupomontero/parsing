@@ -1,8 +1,8 @@
-const { char, int, seq, choice } = require('../..');
+const { char, int, ws, seq, choice } = require('../..');
 
 const bracketedExpr = seq(
-  () => [char('('), expr, char(')')],
-  ([_, x]) => x,
+  () => [ws, char('('), expr, char(')'), ws],
+  ([_, __, x]) => x,
 );
 
 const multiplication = seq(
@@ -25,7 +25,12 @@ const subtraction = seq(
   ([x, _, y]) => x - y,
 );
 
-const factor = choice(bracketedExpr, int);
+const wsPaddedInt = seq(
+  () => [ws, int, ws],
+  ([_, n]) => n,
+);
+
+const factor = choice(bracketedExpr, wsPaddedInt);
 const term = choice(multiplication, division, factor);
 const expr = choice(addition, subtraction, term);
 
