@@ -26,9 +26,7 @@ class ParserError extends SyntaxError {
         : 0
     );
     super(`Unexpected character around position ${pos}`);
-
     this.input = input;
-    this.remaining = remaining;
     this.pos = pos;
   }
   toString() {

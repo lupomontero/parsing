@@ -1,7 +1,7 @@
 {
   "name": "parsing",
   "version": "1.0.0",
-  "description": "",
+  "description": "Functional/combinator parsing in JavaScript",
   "author": "Lupo Montero <lupomontero@gmail.com> (https://lupo.pe/)",
   "license": "MIT",
   "scripts": {
