@@ -13,7 +13,7 @@ term
     factor
 factor
     '(' expr ')'
-    int
+    number
 ```
 
 ### With abstracted sequences (operations)
@@ -27,7 +27,7 @@ term
     factor
 factor
     bracketedExpr
-    int
+    number
 addition
     term '+' expr
 multiplication

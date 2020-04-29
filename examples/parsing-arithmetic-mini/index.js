@@ -1,4 +1,5 @@
-const { char, int, seq, choice } = require('../..');
+const { char, some, seq, choice } = require('../..');
+const { number } = require('../parsing-numbers');
 
 const bracketedExpr = seq(
   () => [char('('), expr, char(')')],
@@ -15,7 +16,7 @@ const addition = seq(
   ([x, _, y]) => x + y,
 );
 
-const factor = choice(bracketedExpr, int);
+const factor = choice(bracketedExpr, number);
 const term = choice(multiplication, factor);
 const expr = choice(addition, term);
 

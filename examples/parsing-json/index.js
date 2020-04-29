@@ -1,4 +1,5 @@
-const { char, nat, int, ws, some, seq, choice } = require('../..');
+const { char, some, seq, choice, ws } = require('../..');
+const { number } = require('../parsing-numbers');
 
 const nullVal = seq(
   () => [char('n'), char('u'), char('l'), char('l')],
@@ -16,8 +17,6 @@ const falseVal = seq(
 );
 
 const boolVal = choice(trueVal, falseVal);
-
-const number = choice(int/*, fraction exponent*/);
 
 const character = choice(
   // seq(char('\\'), escape),

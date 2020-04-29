@@ -2,6 +2,7 @@
 
 const { expr } = require('../examples/parsing-arithmetic');
 const { json } = require('../examples/parsing-json');
+const { number } = require('../examples/parsing-numbers');
 
 const readInputFromStdin = () => new Promise((resolve, reject) => {
   const chunks = [];
@@ -42,12 +43,18 @@ ${inputArr.reduce(
 }
 
 const main = async (parserName, str) => {
-  if (!['arithmetic', 'json'].includes(parserName)) {
+  if (!['number', 'arithmetic', 'json'].includes(parserName)) {
     throw new Error(`Unknown parser: ${parserName}`);
   }
 
   const input = str || await readInputFromStdin();
-  const [result, remaining] = parserName === 'json' ? json(input) : expr(input);
+  const [result, remaining] = (
+    parserName === 'json'
+      ? json(input)
+      : parserName === 'arithmetic'
+        ? expr(input)
+        : number(input)
+  );
 
   if (typeof remaining !== 'string') {
     throw new ParserError(input);

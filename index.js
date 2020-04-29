@@ -1,11 +1,13 @@
+const nothing = str => ['', str];
+
 const char = c => str => (
   str.length && str[0] === c
     ? [str[0], str.slice(1)]
     : []
 );
 
-const digit = str => (
-  '0123456789'.includes(str[0])
+const range = (start, end) => str => (
+  str[0] >= start && str[0] <= end
     ? [str[0], str.slice(1)]
     : []
 );
@@ -18,19 +20,14 @@ const some = parser => (str) => {
     const result = parser(remaining);
     return (
       !result.length
-        ? [memo, remaining]
+        ? !memo ? [] : [memo, remaining]
         : recurse(`${memo}${result[0]}`, result[1])
     );
   };
   return recurse('', str);
 };
 
-const nat = (str) => {
-  const [result, remaining] = some(digit)(str);
-  return !result ? [] : [parseInt(result, 10), remaining];
-};
-
-const seq = (getParsers, reducer) => (str) => {
+const seq = (getParsers, reducer = results => results.join('')) => (str) => {
   const recurse = (remainingParsers, [memo, remainingStr]) => {
     if (!remainingParsers.length) {
       return [memo, remainingStr];
@@ -55,11 +52,12 @@ const choice = (...parsers) => (str) => {
   return result.length ? result : choice(...parsers.slice(1))(str);
 };
 
-const ws = some(choice(char(''), char(' '), char('\t'), char('\n'), char('\r')));
-
-const int = choice(
-  seq(() => [char('-'), nat], ([_, x]) => x * -1),
-  nat,
+const ws = choice(
+  seq(() => [char(' '), ws], ([x, y]) => `${x}${y}`),
+  seq(() => [char('\t'), ws], ([x, y]) => `${x}${y}`),
+  seq(() => [char('\n'), ws], ([x, y]) => `${x}${y}`),
+  seq(() => [char('\r'), ws], ([x, y]) => `${x}${y}`),
+  nothing,
 );
 
-module.exports = { char, digit, some, nat, seq, choice, ws, int };
+module.exports = { nothing, char, range, some, seq, choice, ws };

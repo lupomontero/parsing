@@ -1,4 +1,5 @@
-const { char, int, ws, seq, choice } = require('../..');
+const { char, seq, choice, ws } = require('../..');
+const { number } = require('../parsing-numbers');
 
 const bracketedExpr = seq(
   () => [ws, char('('), expr, char(')'), ws],
@@ -25,12 +26,12 @@ const subtraction = seq(
   ([x, _, y]) => x - y,
 );
 
-const wsPaddedInt = seq(
-  () => [ws, int, ws],
+const wsPaddedNumber = seq(
+  () => [ws, number, ws],
   ([_, n]) => n,
 );
 
-const factor = choice(bracketedExpr, wsPaddedInt);
+const factor = choice(bracketedExpr, wsPaddedNumber);
 const term = choice(multiplication, division, factor);
 const expr = choice(addition, subtraction, term);
 

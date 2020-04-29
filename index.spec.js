@@ -1,4 +1,18 @@
-const { char, digit, some, nat, seq, choice, int } = require('.');
+const {
+  nothing,
+  char,
+  range,
+  some,
+  seq,
+  choice,
+  ws,
+} = require('.');
+
+describe('nothing', () => {
+  it('should ...', () => {
+    expect(nothing('abc')).toEqual(['', 'abc']);
+  });
+});
 
 describe('char', () => {
   it('should create parser for single chars', () => {
@@ -10,30 +24,23 @@ describe('char', () => {
   });
 });
 
-describe('digit', () => {
-  it('should parse single digit', () => {
-    expect(digit('1')).toEqual(['1', '']);
-    expect(digit('123')).toEqual(['1', '23']);
-    expect(digit('a')).toEqual([]);
+describe('range', () => {
+  it('should parse char in given range', () => {
+    expect(range('0', '9')('abc')).toEqual([]);
+    expect(range('0', '9')('123')).toEqual(['1', '23']);
   });
 });
 
 describe('some', () => {
   it('should apply given parser as many times as possible', () => {
-    expect(some(digit)('123abc')).toEqual(['123', 'abc']);
-  });
-});
-
-describe('nat', () => {
-  it('should parse natural numbers (positive integers)', () => {
-    expect(nat('123abc')).toEqual([123, 'abc']);
-    expect(nat('-123abc')).toEqual([]);
+    expect(some(char('0'))('000abc')).toEqual(['000', 'abc']);
+    expect(some(range('0', '9'))('123abc')).toEqual(['123', 'abc']);
   });
 });
 
 describe('seq', () => {
   it('should create a parser that combines the given parsers in sequence', () => {
-    const getParsers = () => [digit, char('+'), digit];
+    const getParsers = () => [char('1'), char('+'), char('1')];
     const reducer = ([x, y, z]) => [x, y, z];
     const parser = seq(getParsers, reducer);
     expect(parser('1+1')).toEqual([['1', '+', '1'], '']);
@@ -42,15 +49,17 @@ describe('seq', () => {
 
 describe('choice', () => {
   it('should apply given parsers in sequence until one yields results', () => {
-    expect(choice(digit, char('-'))('-')).toEqual(['-', '']);
-    expect(choice(digit, char('-'))('1-3a')).toEqual(['1', '-3a']);
-    expect(choice(digit, char('a'))('OMG')).toEqual([]);
+    expect(choice(char('0'), char('-'))('-')).toEqual(['-', '']);
+    expect(choice(nothing, char('-'))('1-3a')).toEqual(['', '1-3a']);
+    expect(choice(char('a'), char('b'))('OMG')).toEqual([]);
   });
 });
 
-describe('int', () => {
-  it('should parse integers (positive and negtive whole numbers)', () => {
-    expect(int('123abc')).toEqual([123, 'abc']);
-    expect(int('-123abc')).toEqual([-123, 'abc']);
+describe('ws', () => {
+  it('should...', () => {
+    expect(ws('')).toEqual(['', '']);
+    expect(ws('  abc')).toEqual(['  ', 'abc']);
+    expect(ws(' \tabc')).toEqual([' \t', 'abc']);
+    expect(ws('\n\n\n  abc')).toEqual(['\n\n\n  ', 'abc']);
   });
 });
