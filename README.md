@@ -126,17 +126,76 @@ const createParser = () => str => [parsedValue, remaining];
 
 ### `nothing(str)`
 
+Parse _nothing_ (no chars) from `str`. This parser always succeeds and results
+in an empty _string_, consuming no chars, so `remaining` will be the same as the
+input _string_. This parser is very useful when combined with other parsers
+using `choice`, allowing us to specify optional _parts_. For example:
+
+```js
+// Let's assume `digit` is a _parser_ function, and we want to express the
+// grammar of an _optional_ `digit`.
+const optionalDigit = choice(digit, nothing);
+```
+
 ### `char(c)(str)`
+
+Parse single matching character (`c`). Example:
+
+```js
+char('a')('abc'); // => ['a', 'bc']
+```
 
 ### `range(start, end)(str)`
 
+Parse single character matching _range_. Example:
+
+```js
+range('a', 'z')('omg'); // => ['o', 'mg']
+```
+
 ### `some(parser)(str)`
 
-### `seq(getParsers, reducer)(str)`
+Parse _part_ given by `parser` one or more times. Example:
+
+```js
+some(char('a'))('aaabc'); // => ['aaa', 'bc']
+```
+
+### `seq(getParsers, [reducer])(str)`
+
+Parse sequence. If no `reducer` is passed, the _default reducer_ will be used,
+which _concatenates_ results into a string.
+
+```js
+// With default reducer.
+seq(() => [char('n'),char('u'),char('l'),char('l')])('null;');
+// => ['null', ';']
+
+// With custom reducer.
+seq(() => [char('n'),char('u'),char('l'),char('l')], r => r)('null;');
+// => [['n', 'u', 'l', 'l'], ';']
+```
 
 ### `choice(parser1, parser2, ..., parserN)(str)`
 
+Parse alternatives (_choices_).
+
+```js
+choice(char('a'), char('b'))('abc'); // => ['a', 'bc']
+choice(char('a'), char('b'))('bcd'); // => ['b', 'cd']
+choice(char('a'), char('b'))('cde'); // => []
+```
+
 ### `ws(str)`
+
+Parse _white space_ (as defined in the [JSON grammar](https://www.json.org/json-en.html)).
+
+```js
+ws(''); // => ['', '']
+ws('  abc'); // => ['  ', 'abc']
+ws(' \tabc'); // => [' \t', 'abc']
+ws('\n\n\n  abc'); // => ['\n\n\n  ', 'abc']
+```
 
 #### Grammar
 
