@@ -1,4 +1,5 @@
-const { char, seq, choice, ws } = require('../..');
+const { char, seq, choice } = require('../..');
+const { ws } = require('../ws');
 const { number } = require('../number');
 
 const bracketedExpr = seq(
@@ -27,7 +28,7 @@ const subtraction = seq(
 );
 
 const wsPaddedNumber = seq(
-  () => [ws, number, ws],
+  [ws, number, ws],
   ([_, n]) => n,
 );
 

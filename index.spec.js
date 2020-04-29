@@ -5,7 +5,6 @@ const {
   some,
   seq,
   choice,
-  ws,
 } = require('.');
 
 describe('nothing', () => {
@@ -40,6 +39,13 @@ describe('some', () => {
 
 describe('seq', () => {
   it('should create a parser that combines the given parsers in sequence', () => {
+    const parsers = [char('1'), char('+'), char('1')];
+    const reducer = ([x, y, z]) => [x, y, z];
+    const parser = seq(parsers, reducer);
+    expect(parser('1+1')).toEqual([['1', '+', '1'], '']);
+  });
+
+  it('should accept parsers as function', () => {
     const getParsers = () => [char('1'), char('+'), char('1')];
     const reducer = ([x, y, z]) => [x, y, z];
     const parser = seq(getParsers, reducer);
@@ -52,15 +58,5 @@ describe('choice', () => {
     expect(choice(char('0'), char('-'))('-')).toEqual(['-', '']);
     expect(choice(nothing, char('-'))('1-3a')).toEqual(['', '1-3a']);
     expect(choice(char('a'), char('b'))('OMG')).toEqual([]);
-  });
-});
-
-describe('ws', () => {
-  it('should...', () => {
-    expect(ws('')).toEqual(['', '']);
-    expect(ws('  abc')).toEqual(['  ', 'abc']);
-    expect(ws(' \tabc')).toEqual([' \t', 'abc']);
-    expect(ws('\t\rabc')).toEqual(['\t\r', 'abc']);
-    expect(ws('\n\n\n  abc')).toEqual(['\n\n\n  ', 'abc']);
   });
 });

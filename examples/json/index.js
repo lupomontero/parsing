@@ -1,18 +1,19 @@
-const { char, some, seq, choice, ws } = require('../..');
+const { char, some, seq, choice } = require('../..');
+const { ws } = require('../ws');
 const { number } = require('../number');
 
 const nullVal = seq(
-  () => [char('n'), char('u'), char('l'), char('l')],
+  [char('n'), char('u'), char('l'), char('l')],
   () => null,
 );
 
 const trueVal = seq(
-  () => [char('t'), char('r'), char('u'), char('e')],
+  [char('t'), char('r'), char('u'), char('e')],
   () => true,
 );
 
 const falseVal = seq(
-  () => [char('f'), char('a'), char('l'), char('s'), char('e')],
+  [char('f'), char('a'), char('l'), char('s'), char('e')],
   () => false,
 );
 
@@ -33,7 +34,7 @@ const character = choice(
 const characters = some(character);
 
 const string = seq(
-  () => [char('"'), characters, char('"')],
+  [char('"'), characters, char('"')],
   ([_, s]) => s,
 );
 
@@ -49,12 +50,12 @@ const elements = choice(
 );
 
 const array = choice(
-  seq(() => [char('['), ws, char(']')], () => []),
-  seq(() => [char('['), elements, char(']')], ([_, v]) => v),
+  seq([char('['), ws, char(']')], () => []),
+  seq([char('['), elements, char(']')], ([_, v]) => v),
 );
 
 const object = choice(
-  seq(() => [char('{'), ws, char('}')], () => ({})),
+  seq([char('{'), ws, char('}')], () => ({})),
   seq(() => [char('{'), members, char('}')], ([_, m]) => m),
 );
 
@@ -65,7 +66,7 @@ const members = choice(
 );
 
 const member = seq(
-  () => [ws, string, ws, char(':'), element],
+  [ws, string, ws, char(':'), element],
   ([_, k, __, ___, v]) => [k, v],
 );
 

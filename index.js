@@ -27,7 +27,7 @@ const some = parser => (str) => {
   return recurse('', str);
 };
 
-const seq = (getParsers, reducer = results => results.join('')) => (str) => {
+const seq = (parsers, reducer = results => results.join('')) => (str) => {
   const recurse = (remainingParsers, [memo, remainingStr]) => {
     if (!remainingParsers.length) {
       return [memo, remainingStr];
@@ -40,7 +40,10 @@ const seq = (getParsers, reducer = results => results.join('')) => (str) => {
     );
   };
 
-  const [result, remaining] = recurse(getParsers(), [[], str]);
+  const [result, remaining] = recurse(
+    typeof parsers === 'function' ? parsers() : parsers,
+    [[], str],
+  );
   return !result ? [] : [reducer(result), remaining];
 };
 
@@ -52,12 +55,4 @@ const choice = (...parsers) => (str) => {
   return result.length ? result : choice(...parsers.slice(1))(str);
 };
 
-const ws = choice(
-  seq(() => [char(' '), ws], ([x, y]) => `${x}${y}`),
-  seq(() => [char('\t'), ws], ([x, y]) => `${x}${y}`),
-  seq(() => [char('\n'), ws], ([x, y]) => `${x}${y}`),
-  seq(() => [char('\r'), ws], ([x, y]) => `${x}${y}`),
-  nothing,
-);
-
-module.exports = { nothing, char, range, some, seq, choice, ws };
+module.exports = { nothing, char, range, some, seq, choice };

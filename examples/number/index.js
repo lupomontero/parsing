@@ -14,25 +14,25 @@ const digits = some(digit);
 const sign = choice(char('+'), char('-'), nothing);
 
 const integer = choice(
-  seq(() => [onenine, digits]),
+  seq([onenine, digits]),
   digit,
-  seq(() => [char('-'), onenine, digits]),
-  seq(() => [char('-'), digit]),
+  seq([char('-'), onenine, digits]),
+  seq([char('-'), digit]),
 );
 
 const fraction = choice(
-  seq(() => [char('.'), digits]),
+  seq([char('.'), digits]),
   nothing,
 );
 
 const exponent = choice(
-  seq(() => [char('E'), sign, digits]),
-  seq(() => [char('e'), sign, digits]),
+  seq([char('E'), sign, digits]),
+  seq([char('e'), sign, digits]),
   nothing,
 );
 
 const number = seq(
-  () => [integer, fraction, exponent],
+  [integer, fraction, exponent],
   ([x, y, z]) => parseFloat(`${x}${y}${z}`, 10),
 );
 

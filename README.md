@@ -4,7 +4,7 @@
 
 This repo contains a _toy parsing library_ that provides basic infrastructure
 to build functional/combinator parsers, as well as some example _parsers_ (a
-[number parser](./examples/number), an
+[white space parser](./examples/ws), a [number parser](./examples/number), an
 [arithmetic expression parser](examples/arithmetic) and a
 [`JSON` parser](examples/json)) that make use of the said library.
 
@@ -161,19 +161,23 @@ Parse _part_ given by `parser` one or more times. Example:
 some(char('a'))('aaabc'); // => ['aaa', 'bc']
 ```
 
-### `seq(getParsers, [reducer])(str)`
+### `seq(parsers, [reducer])(str)`
 
 Parse sequence. If no `reducer` is passed, the _default reducer_ will be used,
 which _concatenates_ results into a string.
 
 ```js
 // With default reducer.
-seq(() => [char('n'),char('u'),char('l'),char('l')])('null;');
+seq([char('n'),char('u'),char('l'),char('l')])('null;');
 // => ['null', ';']
 
 // With custom reducer.
-seq(() => [char('n'),char('u'),char('l'),char('l')], r => r)('null;');
+seq([char('n'),char('u'),char('l'),char('l')], r => r)('null;');
 // => [['n', 'u', 'l', 'l'], ';']
+
+// Parser arg can also be a function that returns an array of parsers.
+seq(() => [char('n'),char('u'),char('l'),char('l')])('null;');
+// => ['null', ';']
 ```
 
 ### `choice(parser1, parser2, ..., parserN)(str)`
@@ -186,30 +190,9 @@ choice(char('a'), char('b'))('bcd'); // => ['b', 'cd']
 choice(char('a'), char('b'))('cde'); // => []
 ```
 
-### `ws(str)`
-
-Parse _white space_ (as defined in the [JSON grammar](https://www.json.org/json-en.html)).
-
-```js
-ws(''); // => ['', '']
-ws('  abc'); // => ['  ', 'abc']
-ws(' \tabc'); // => [' \t', 'abc']
-ws('\n\n\n  abc'); // => ['\n\n\n  ', 'abc']
-```
-
-#### Grammar
-
-```
-ws
-    ""
-    '0020' ws
-    '000A' ws
-    '000D' ws
-    '0009' ws
-```
-
 ## Example parsers
 
+* [White space parser](./examples/ws)
 * [Number parser](./examples/number)
 * [Arithmetic expression parser](examples/arithmetic)
 * [`JSON` parser](examples/json)
