@@ -1,5 +1,5 @@
 const { char, seq, choice, ws } = require('../..');
-const { number } = require('../parsing-numbers');
+const { number } = require('../number');
 
 const bracketedExpr = seq(
   () => [ws, char('('), expr, char(')'), ws],

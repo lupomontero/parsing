@@ -1,8 +1,28 @@
-# parsing-numbers
+# Number parser
 
 An example functional number parser based on JSON's number grammar.
 
 ## Grammar
+
+This example implements JSON's _number_ grammar.
+
+In this grammar, a _number_ is made up of 3 parts: _integer_, _fraction_ and
+_exponent_. The last two are optional (they can be _nothing_). Consider the
+following number:
+
+```
+-3.14e+2
+```
+
+Number _parts_:
+
+```
+   -3       .14       e+2
+\_______/\________/\_______/
+ integer  fraction  exponent
+```
+
+### Formal grammar
 
 ```
 number
@@ -39,6 +59,8 @@ sign
     '+'
     '-'
 ```
+
+## API
 
 ### `number(str)`
 

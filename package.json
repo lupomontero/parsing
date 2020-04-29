@@ -4,6 +4,9 @@
   "description": "Functional/combinator parsing in JavaScript",
   "author": "Lupo Montero <lupomontero@gmail.com> (https://lupo.pe/)",
   "license": "MIT",
+  "bin": {
+    "parsing": "./bin/cli.js"
+  },
   "scripts": {
     "test": "jest --verbose --coverage"
   },

@@ -1,5 +1,5 @@
 const { char, some, seq, choice, ws } = require('../..');
-const { number } = require('../parsing-numbers');
+const { number } = require('../number');
 
 const nullVal = seq(
   () => [char('n'), char('u'), char('l'), char('l')],

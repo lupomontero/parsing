@@ -1,4 +1,4 @@
-# parsing-arithmetic
+# Arithmetic expression parser
 
 A functional arithmetic expression parser.
 

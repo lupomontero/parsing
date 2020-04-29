@@ -1,4 +1,4 @@
-# parsing-arithmetic-mini
+# Arithmetic expression parser (mini)
 
 A mini (for demo purposes) functional arithmetic expression parser.
 

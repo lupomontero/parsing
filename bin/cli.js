@@ -1,8 +1,8 @@
 #! /usr/bin/env node
 
-const { expr } = require('../examples/parsing-arithmetic');
-const { json } = require('../examples/parsing-json');
-const { number } = require('../examples/parsing-numbers');
+const { expr } = require('../examples/arithmetic');
+const { json } = require('../examples/json');
+const { number } = require('../examples/number');
 
 const readInputFromStdin = () => new Promise((resolve, reject) => {
   const chunks = [];
@@ -16,7 +16,7 @@ const readInputFromStdin = () => new Promise((resolve, reject) => {
     }
   });
 
-  process.stdin.on('end', () => resolve(chunks.join()));
+  process.stdin.on('end', () => resolve(chunks.join('')));
 });
 
 class ParserError extends SyntaxError {

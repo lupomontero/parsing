@@ -4,9 +4,9 @@
 
 This repo contains a _toy parsing library_ that provides basic infrastructure
 to build functional/combinator parsers, as well as some example _parsers_ (a
-[number parser](./examples/parsing-numbers), an
-[arithmetic expression parser](examples/parsing-arithmetic) and a
-[`JSON` parser](examples/parsing-json)) that make use of the said library.
+[number parser](./examples/number), an
+[arithmetic expression parser](examples/arithmetic) and a
+[`JSON` parser](examples/json)) that make use of the said library.
 
 :warning: These tools are developed as a learning experience and are not intended for use
 in production.
@@ -138,6 +138,8 @@ const createParser = () => str => [parsedValue, remaining];
 
 ### `ws(str)`
 
+#### Grammar
+
 ```
 ws
     ""
@@ -149,9 +151,9 @@ ws
 
 ## Example parsers
 
-* [Number parser](./examples/parsing-numbers)
-* [Arithmetic expression parser](examples/parsing-arithmetic)
-* [`JSON` parser](examples/parsing-json)
+* [Number parser](./examples/number)
+* [Arithmetic expression parser](examples/arithmetic)
+* [`JSON` parser](examples/json)
 
 ## Further reading
 
