@@ -3,10 +3,8 @@
 ## Overview
 
 This repo contains a _toy parsing library_ that provides basic infrastructure
-to build functional/combinator parsers, as well as some example _parsers_ (a
-[white space parser](./examples/ws), a [number parser](./examples/number), an
-[arithmetic expression parser](examples/arithmetic) and a
-[`JSON` parser](examples/json)) that make use of the said library.
+for building functional/combinator _parsers_, as well as some
+[example _parsers_](#example-parsers) that make use of the [said library](#api).
 
 :warning: These tools are developed as a learning experience and are not intended for use
 in production.
@@ -175,7 +173,7 @@ seq([char('n'),char('u'),char('l'),char('l')])('null;');
 seq([char('n'),char('u'),char('l'),char('l')], r => r)('null;');
 // => [['n', 'u', 'l', 'l'], ';']
 
-// Parser arg can also be a function that returns an array of parsers.
+// 1st arg (`parsers`) can also be a function that returns an array of parsers.
 seq(() => [char('n'),char('u'),char('l'),char('l')])('null;');
 // => ['null', ';']
 ```
