@@ -8,9 +8,11 @@
     "parsing": "./bin/cli.js"
   },
   "scripts": {
-    "test": "jest --verbose --coverage"
+    "test": "jest --verbose --coverage",
+    "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
   "devDependencies": {
+    "coveralls": "^3.1.0",
     "jest": "^25.3.0"
   }
 }
