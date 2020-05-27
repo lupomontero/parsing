@@ -169,15 +169,15 @@ which _concatenates_ results into a string.
 
 ```js
 // With default reducer.
-seq([char('n'),char('u'),char('l'),char('l')])('null;');
+seq([char('n'), char('u'), char('l'), char('l')])('null;');
 // => ['null', ';']
 
 // With custom reducer.
-seq([char('n'),char('u'),char('l'),char('l')], r => r)('null;');
+seq([char('n'), char('u'), char('l'), char('l')], r => r)('null;');
 // => [['n', 'u', 'l', 'l'], ';']
 
 // 1st arg (`parsers`) can also be a function that returns an array of parsers.
-seq(() => [char('n'),char('u'),char('l'),char('l')])('null;');
+seq(() => [char('n'), char('u'), char('l'), char('l')])('null;');
 // => ['null', ';']
 ```
 
