@@ -1,7 +1,7 @@
 # parsing (Functional parsing tools)
 
 ![Node.js CI](https://github.com/lupomontero/parsing/workflows/Node.js%20CI/badge.svg)
-[![Coverage Status](https://coveralls.io/repos/github/lupomontero/parsing/badge.svg?branch=master)](https://coveralls.io/github/lupomontero/parsing?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/lupomontero/parsing/badge.svg?branch=main)](https://coveralls.io/github/lupomontero/parsing?branch=main)
 
 ## Overview
 
